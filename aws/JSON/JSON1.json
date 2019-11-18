@@ -1,0 +1,7 @@
+{
+    "Batch": "0123",
+    "JSON_Type": "0|1",
+    "On": "0|1",
+    "Whisker": "Int value from 0 to n",
+    "Date": "dd/mm/yyyy 00:00:00"
+}
