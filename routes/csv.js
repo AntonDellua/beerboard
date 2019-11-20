@@ -16,7 +16,7 @@ var file = fs.createWriteStream('./output.csv');
  * The only goal here is to GET the CSV files from AWS
  */
 
- router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
 
     // GET the most recent batch
     
@@ -34,12 +34,12 @@ var file = fs.createWriteStream('./output.csv');
     }).createReadStream().pipe(file);
     
     console.log('End of GET /');
- });
+});
 
- router.get('/:batch', function(req, res, next) {
+router.get('/:batch', function(req, res, next) {
 
     // GET the specified batch
 
- });
+});
 
 module.exports = router;

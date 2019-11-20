@@ -7,12 +7,7 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 var table = "NodeMCU-Test";
-
-//var year = 2015;
-//var title = "The Big New Movie";
-
 var batch = "a04";
-
 var params = {
     TableName: table,
     Key:{
