@@ -23,14 +23,13 @@ device
   .on('connect', function() {
     console.log('connect');
     //device.subscribe('topic_1');
-    device.publish('NodeMCU-Topic', JSON.stringify(
-    //device.publish('DataTransferTest', JSON.stringify(
+    //device.publish('NodeMCU-Topic', JSON.stringify(
+    device.publish('brewingstatus', JSON.stringify(
       { 
-        Batch: 'a04',
-        user: 'Anton',
-        device_id: '02',
-        timestamp: '00:00:00',
-        temp: 45
+        batch: 'a04',
+        JSON_Type: 0,
+        on: 1,
+        datetime: '01/01/2020:00:00:01'
       }));
   });
 

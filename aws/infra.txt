@@ -1,0 +1,65 @@
+//////AWS IOT INFRAESTRUCTURE/////////////////////
+
+ENDPOINT:
+a1nb3ykqw07ghq-ats.iot.us-east-2.amazonaws.com
+
+THINGS:
+NodeMCU
+
+TOPICS:
+
+Brewing Process: <brewingstatus>
+Brewing Sensors: <brewingdata>
+
+ADMITTED JSON:
+
+JSON 1
+{
+  batch: "ID",	//Key to join with other JSON
+  JSON_Type: 0|1,	//Bool to know in which DB to save
+  on: 0|1,	//0=Off, 1=On
+  datetime: "dd/mm/yyyy:00:00:00"
+}
+
+JSON 2
+{
+  batch: "ID",	//Key to join with other JSON
+  JSON_Type: 0|1,	//Bool to know in which DB to save
+  sensor: "ID",
+  temp: 123,
+  time: "00:00:00"
+}
+
+ACTIONS:
+
+Brewing Process:
+1- Save to DynamoDB
+2- Notifications to Email when process starts and ends
+Brewing Sensors:
+3- Save to DynamoDB
+4- Notifications to Email if there are dangerous measures
+
+DYNAMODB TABLES:
+
+BrewingStatusDB
+BrewingDataDB
+
+S3 BUCKETS:
+
+antondellua-s3-iot-beerboard
+- <csv-files>: Repo for CSV generated files to be downloaded
+- Pipeline repos: Auto-generated, should not be downloaded as it is raw data
+
+PIPELINES:
+
+BrewPipeline
+
+GLUE CRAWLERS:
+
+
+
+GLUE JOBS:
+
+IAM ROLES:
+
+

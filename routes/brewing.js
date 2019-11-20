@@ -11,10 +11,21 @@ var router = express.Router();
  * results from certain batches before being able to get them.
  * 
  * There must be validation to stop the user from the previous point.
+ * 
+ * Use with DYNAMODB data...
+ * 
+ * There are going to be 3 tables:
+ * 1.- Brewing Status
+ * 2.- Brewing Data
+ * 3.- Brewing Results
+ * 
+ * All three must be parsed and joined before showing to the final user by batch,
+ * so it is likely to have intermediate JSON formats that CAT all fields...
  */
 
 // GET All results
 router.get('/', function(req, res, next) {
+    // Get everything from all tables
     res.send('respond with a resource');
 });
 
