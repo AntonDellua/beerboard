@@ -3,12 +3,12 @@ var router = express.Router();
 
 var awsIot = require('aws-iot-device-sdk');
 
-
+/*
 // You will need to update the file paths.
 var device = awsIot.device({
-    keyPath: '8e0a5c05ff-private.pem.key',
-   certPath: '8e0a5c05ff-certificate.pem.crt',
-     caPath: 'rootCA.pem',
+    keyPath: '../../aws/NodeJS-Thing-01/8e0a5c05ff-private.pem.key',
+   certPath: '../../aws/NodeJS-Thing-01/8e0a5c05ff-certificate.pem.crt',
+     caPath: '../../aws/NodeJS-Thing-01/rootCA.pem',
    clientId: 'nodejs-thing-01',
        host: 'a1nb3ykqw07ghq-ats.iot.us-east-2.amazonaws.com'
  });
@@ -18,7 +18,7 @@ var device = awsIot.device({
  * 
  * You will need to subscribe to both topics so you can get all the data...
  */
-
+/*
 device
   .on('connect', function() {
     //console.log('connect');
