@@ -1,7 +1,5 @@
-console.log("Hello!");
 $(document).ready(function(){
     $(".sideMenuToggler").on("click", function() {
-        console.log("World");
         $(".wrapper").toggleClass("active");
     });
 

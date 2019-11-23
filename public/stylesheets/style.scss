@@ -35,7 +35,6 @@ body {
         left: 0;
         margin: rem($margin-top) auto auto;
         width: rem(200px);
-        border: 1px solid red;
         transition: all ease $easeTime;
         transform: translateX(-100%);
         z-index: 2000;
@@ -52,7 +51,7 @@ body {
     }
 }
 
-@media (min-width: 108px) {
+@media (min-width: 992px) {
     .wrapper {
         .sideMenu{
             transform: translateX(0);
@@ -63,7 +62,7 @@ body {
         &.active {
             .sideMenu {
                 width: rem(80px);
-                .nav_link {
+                .nav-link {
                     text-align: center;
                     .icon {
                         margin-right: 0;
@@ -80,7 +79,7 @@ body {
     }
 }
 
-.nav_link {
+.nav-link {
     display: block;
     white-space: nowrap;
     .icon {
