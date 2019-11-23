@@ -1,3 +1,5 @@
+console.log('Hello from dashboard.js');
+
 $(document).ready(function(){
     $(".sideMenuToggler").on("click", function() {
         $(".wrapper").toggleClass("active");

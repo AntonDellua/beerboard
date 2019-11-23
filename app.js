@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
+// AWS IoT
+var awsIot = require('aws-iot-device-sdk');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,6 +14,9 @@ var brewingRouter = require('./routes/brewing');
 var csvRouter = require('./routes/csv');
 
 var app = express();
+
+// WebSocket Server
+var expressWs = require('express-ws')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,8 +38,9 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+//app.use('/', statusRouter);
 app.use('/users', usersRouter);
-app.use('/beerstatus', statusRouter);
+//app.use('/beerstatus', statusRouter);
 app.use('/brewing', brewingRouter);
 app.use('/csv', csvRouter);
 
