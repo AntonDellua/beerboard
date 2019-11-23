@@ -1,7 +1,12 @@
+// Express Router
 var express = require('express');
 var router = express.Router();
 
+// AWS IoT
 var awsIot = require('aws-iot-device-sdk');
+
+// WebSocket Server
+var expressWs = require('express-ws')(router);
 
 /*
 // You will need to update the file paths.
@@ -35,7 +40,32 @@ device
  * The main goal of this router is to get in
  * real time the status of the different measurements
  * in the beer process.
+ * 
+ * It is required to open a WebSocket from the server side here!
+ * The fron-end must call the API here to obtain the real-time data from the process,
+ * hence we need the WebSocket to be open.
  */
+
+
+///*** AWS IOT */
+
+// Evaluar si error que se tiene al cargar aws es porque se tiene que exportar dicho modulo
+// en todo caso que si, manejar funcionalidad de aws en otro archivo e importarlo de alguna forma
+// O buscar otra alternativa...
+
+///*** WEBSOCKET */
+
+router.ws('/', (ws, req) => {
+  	ws.on('message', msg => {
+    	ws.send(msg);
+  	});
+
+  	ws.on('close', () => {
+    	console.log('WebSocket was closed from the server side...');
+  	});
+});
+
+///*** ROUTES */
 
 // GET /
 router.get('/', function(req, res, next) {
