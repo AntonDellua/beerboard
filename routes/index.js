@@ -27,7 +27,7 @@ var expressWs = require('express-ws')(router);
 var device = awsIot.device({
   keyPath: 'aws/NodeJS-Thing-01/8e0a5c05ff-private.pem.key',
   certPath: 'aws/NodeJS-Thing-01/8e0a5c05ff-certificate.pem.crt',
-   caPath: 'aws/NodeJS-Thing-01/rootCA.pem',
+  caPath: 'aws/NodeJS-Thing-01/rootCA.pem',
   clientId: 'nodejs-thing-01',
   host: 'a1nb3ykqw07ghq-ats.iot.us-east-2.amazonaws.com'
 });
@@ -38,41 +38,23 @@ device
   device.subscribe('NodeMCU-Topic');
 });
 
-/*
-device
-  .on('message', function(topic, payload) {
-  // Change this to dynamically save the data in a global var to be able to export it.
-  console.log('message', topic, ':\n', JSON.parse(payload.toString()));
-});
-*/
-
 ///*** WEBSOCKET */
 
 router.ws('/', (ws, req) => {
-console.log('WebSocket initialized from server side...')
+  console.log('WebSocket initialized from server side...')
   ws.on('message', msg => {
-  //ws.send(msg);
-  console.log('WebSocket Message received form server side...')
-  /*
+    //ws.send(msg);
+    console.log('WebSocket Message received form server side...');
+  });
+  
   device
     .on('message', function(topic, payload) {
     // Change this to dynamically save the data in a global var to be able to export it.
     let JSONpayload = JSON.parse(payload.toString());
-    console.log('message', topic, ':\n', JSONpayload);
-    ws.send(JSONpayload);
+    console.log('Message', topic, ':\n', JSONpayload);
+    ws.send(payload.toString());
     console.log('WebSocket Message sent form server side...')
-  });*/
-
-});
-  
-device
-  .on('message', function(topic, payload) {
-  // Change this to dynamically save the data in a global var to be able to export it.
-  let JSONpayload = JSON.parse(payload.toString());
-  console.log('Message', topic, ':\n', JSONpayload);
-  ws.send(payload.toString());
-  console.log('WebSocket Message sent form server side...')
-});
+  });
 
   ws.on('close', () => {
     console.log('WebSocket was closed from the server side...');

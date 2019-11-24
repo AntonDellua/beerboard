@@ -30,8 +30,8 @@
             <button class="navbar-toggler sideMenuToggler" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Navbar</a> 
-            <!--Imagen -> substituye por Navbar = <img src="Logo.jpg" alt="Logo" style="width:30px;height:30px;">-->
+            <img src="Logo.jpg" alt="Imagen del Logo" class="center-block img-responsive"/>
+            <!--<a class="navbar-brand" href="#">Navbar</a>-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,8 +44,6 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Cerrar Sesión</a>
-                            <!--<div class="dropdown-divider"></div>-->
-                            <!--<a class="dropdown-item" href="#">Something else here</a>-->
                       </div>
                     </li>
                 </ul>  
@@ -59,21 +57,13 @@
             <div class="sidebar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="#content" class="nav-link px-2">
+                        <a href="#dashboard" class="nav-link px-2">
                             <i class="material-icons icon">
                                 home
                             </i>
                             <span class="text">Dashboard</span>
                         </a>
                     </li>
-                    <!--<li class="nav-item">
-                        <a href="#content" class="nav-link px-2">
-                            <i class="material-icons icon">
-                                home
-                            </i>
-                            <span class="text">Dashboard</span>
-                        </a>
-                    </li>-->
                     <li class="nav-item">
                         <a href="#batch" class="nav-link px-2">
                             <i class="material-icons icon">
@@ -98,125 +88,167 @@
                             <span class="text">Settings</span>
                         </a>
                     </li>
-                    <!--<li class="nav-item">
-                        <a href="#" class="nav-link px-2">
-                            <i class="material-icons icon">
-                                computer
-                            </i>
-                            <span class="text">Demo</span>
-                        </a>
-                    </li>-->
                 </ul>
             </div>
         </div>
         <!--End of Side Menu-->
 
-        <!--Start of Dashboard-->
-        <div class="content">
-            <main>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-3 my-3">
-                            <div class="bg-mattBlackLight p-3">
-                                <h4 class="mb-2">
-                                    Beer Batch
-                                </h4>
-                                <p id="batchContainer">N/A</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 my-3">
-                            <div class="bg-mattBlackLight p-3">
-                                <h4 class="mb-2">
-                                    Time Running
-                                </h4>
-                                <p id="timeContainer">N/A</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 my-3">
-                            <div class="bg-mattBlackLight p-3">
-                                <h4 class="mb-2">
-                                    Dummy
-                                </h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 my-3">
-                            <div class="bg-mattBlackLight p-3">
-                                <h4 class="mb-2">
-                                    Dummy
-                                </h4>
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                    <div class="row">
-                        <div class="col-md-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloremque obcaecati fugit cupiditate magnam illum laudantium sit ea libero ut eos at, necessitatibus tenetur modi ipsum minus iure quae delectus optio quos magni reiciendis iste. Maiores quisquam beatae, saepe quas, eum ratione deserunt alias quos unde odit numquam eaque repudiandae?</div>
-                        <div class="col-md-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui deserunt corporis adipisci beatae cumque odit iure placeat libero dignissimos nesciunt illo suscipit perspiciatis veniam nisi, excepturi reiciendis nulla reprehenderit tenetur, ipsum nemo commodi temporibus. Nulla vero neque consectetur ea ducimus?</div>
-                    </div>
-                    -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="row my-3">
-                                <div class="col-md-12">
-                                    <div class="bg-mattBlackLight p-3">
-                                        <h4 class="mb-2">
-                                            Dummy
-                                        </h4>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row my-3">
-                                <div class="col-md-12">
-                                    <div class="bg-mattBlackLight p-3">
-                                        <h4 class="mb-2">
-                                            Dummy
-                                        </h4>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row my-3">
-                                <div class="col-md-12">
-                                    <div class="bg-mattBlackLight p-3">
-                                        <h4 class="mb-2">
-                                            Dummy
-                                        </h4>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row my-3">
-                                <div class="col-md-12">
-                                    <div class="bg-mattBlackLight p-3">
-                                        <h4 class="mb-2">
-                                            Dummy
-                                        </h4>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9"></div>
-                    </div>
-                </div>
-            </main>
-        </div>
-        <!--End of Dashboard-->
 
-        <!--Start of Batch--
-        <div class="batch">
-            <main>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloremque obcaecati fugit cupiditate magnam illum laudantium sit ea libero ut eos at, necessitatibus tenetur modi ipsum minus iure quae delectus optio quos magni reiciendis iste. Maiores quisquam beatae, saepe quas, eum ratione deserunt alias quos unde odit numquam eaque repudiandae?</div>
-                        <div class="col-md-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui deserunt corporis adipisci beatae cumque odit iure placeat libero dignissimos nesciunt illo suscipit perspiciatis veniam nisi, excepturi reiciendis nulla reprehenderit tenetur, ipsum nemo commodi temporibus. Nulla vero neque consectetur ea ducimus?</div>
+        <section class="content">
+            <!--Start of Batch-->
+            <div id="batch" class="page">
+                <main>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloremque obcaecati fugit cupiditate magnam illum laudantium sit ea libero ut eos at, necessitatibus tenetur modi ipsum minus iure quae delectus optio quos magni reiciendis iste. Maiores quisquam beatae, saepe quas, eum ratione deserunt alias quos unde odit numquam eaque repudiandae?</div>
+                            <div class="col-md-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui deserunt corporis adipisci beatae cumque odit iure placeat libero dignissimos nesciunt illo suscipit perspiciatis veniam nisi, excepturi reiciendis nulla reprehenderit tenetur, ipsum nemo commodi temporibus. Nulla vero neque consectetur ea ducimus?</div>
+                        </div>
                     </div>
-                </div>
-            </main>
-        </div>
-        <!--End of batch-->
+                </main>
+            </div>
+            <!--End of batch-->
+        <!--</section>
+
+        <section class="content-dashboard">-->
+            <!--Start of Dashboard-->
+            <div id="dashboard" class="page default">
+                <main>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3 my-3">
+                                <div class="bg-mattBlackLight p-3">
+                                    <h4 class="mb-2">
+                                        Beer Batch
+                                    </h4>
+                                    <p id="batchContainer">N/A</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 my-3">
+                                <div class="bg-mattBlackLight p-3">
+                                    <h4 class="mb-2">
+                                        Time Running
+                                    </h4>
+                                    <p id="timeContainer">N/A</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 my-3">
+                                <div class="bg-mattBlackLight p-3">
+                                    <h4 class="mb-2">
+                                        Dummy
+                                    </h4>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 my-3">
+                                <div class="bg-mattBlackLight p-3">
+                                    <h4 class="mb-2">
+                                        Dummy
+                                    </h4>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="row">
+                            <div class="col-md-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloremque obcaecati fugit cupiditate magnam illum laudantium sit ea libero ut eos at, necessitatibus tenetur modi ipsum minus iure quae delectus optio quos magni reiciendis iste. Maiores quisquam beatae, saepe quas, eum ratione deserunt alias quos unde odit numquam eaque repudiandae?</div>
+                            <div class="col-md-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui deserunt corporis adipisci beatae cumque odit iure placeat libero dignissimos nesciunt illo suscipit perspiciatis veniam nisi, excepturi reiciendis nulla reprehenderit tenetur, ipsum nemo commodi temporibus. Nulla vero neque consectetur ea ducimus?</div>
+                        </div>
+                        -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="row my-3">
+                                    <div class="col-md-12">
+                                        <div class="bg-mattBlackLight p-3">
+                                            <h4 class="mb-2">
+                                                Dummy
+                                            </h4>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-12">
+                                        <div class="bg-mattBlackLight p-3">
+                                            <h4 class="mb-2">
+                                                Dummy
+                                            </h4>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-12">
+                                        <div class="bg-mattBlackLight p-3">
+                                            <h4 class="mb-2">
+                                                Dummy
+                                            </h4>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-12">
+                                        <div class="bg-mattBlackLight p-3">
+                                            <h4 class="mb-2">
+                                                Dummy
+                                            </h4>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="col-md-12 my-3">
+                                    <div class="bg-mattBlackLight p-3">
+                                        <h4 class="mb-2">
+                                            Log Dummy
+                                        </h4>
+                                        <table class="table table-striped table-bordered table-dark">
+                                            <thead>
+                                                <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">First</th>
+                                                <th scope="col">Last</th>
+                                                <th scope="col">Handle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">2</th>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td>@fat</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">3</th>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td>@twitter</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">4</th>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td>@twitter</td>
+                                                </tr>
+                                                <tr>
+                                            </tbody>
+                                        </table> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <!--End of Dashboard-->
+        </section>
 
     </div>
 
