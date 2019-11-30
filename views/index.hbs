@@ -19,12 +19,6 @@
     <script src="../javascripts/dashboard.js"></script>
     <script src="../javascripts/websocket.js"></script>
 
-    <!--
-        RETOMAR EN MINUTO 12:42
-        https://www.youtube.com/watch?v=Ppz2UNlHp0g
-
-    -->
-
     <!--NavBar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <button class="navbar-toggler sideMenuToggler" type="button">
@@ -118,7 +112,7 @@
                             <div class="col-md-3 my-3">
                                 <div class="bg-mattBlackLight p-3">
                                     <h4 class="mb-2">
-                                        Beer Batch
+                                        Beer Batch:
                                     </h4>
                                     <p id="batchContainer">N/A</p>
                                 </div>
@@ -126,7 +120,7 @@
                             <div class="col-md-3 my-3">
                                 <div class="bg-mattBlackLight p-3">
                                     <h4 class="mb-2">
-                                        Time Running
+                                        Started at:
                                     </h4>
                                     <p id="timeContainer">N/A</p>
                                 </div>
@@ -134,17 +128,17 @@
                             <div class="col-md-3 my-3">
                                 <div class="bg-mattBlackLight p-3">
                                     <h4 class="mb-2">
-                                        Dummy
+                                        Running Time:
                                     </h4>
-                                    <p></p>
+                                    <p id="runningContainer">N/A</p>
                                 </div>
                             </div>
                             <div class="col-md-3 my-3">
                                 <div class="bg-mattBlackLight p-3">
                                     <h4 class="mb-2">
-                                        Dummy
+                                        Overall Temperature:
                                     </h4>
-                                    <p></p>
+                                    <p id="overallContainer">N/A</p>
                                 </div>
                             </div>
                         </div>
@@ -160,9 +154,9 @@
                                     <div class="col-md-12">
                                         <div class="bg-mattBlackLight p-3">
                                             <h4 class="mb-2">
-                                                Dummy
+                                                Sensor 1:
                                             </h4>
-                                            <p></p>
+                                            <p id="temp1Container">N/A</p>
                                         </div>
                                     </div>
                                 </div>
@@ -170,9 +164,9 @@
                                     <div class="col-md-12">
                                         <div class="bg-mattBlackLight p-3">
                                             <h4 class="mb-2">
-                                                Dummy
+                                                Sensor 2:
                                             </h4>
-                                            <p></p>
+                                            <p id="temp2Container">N/A</p>
                                         </div>
                                     </div>
                                 </div>
@@ -180,9 +174,9 @@
                                     <div class="col-md-12">
                                         <div class="bg-mattBlackLight p-3">
                                             <h4 class="mb-2">
-                                                Dummy
+                                                Sensors 3:
                                             </h4>
-                                            <p></p>
+                                            <p id="temp3Container">N/A</p>
                                         </div>
                                     </div>
                                 </div>
@@ -190,9 +184,9 @@
                                     <div class="col-md-12">
                                         <div class="bg-mattBlackLight p-3">
                                             <h4 class="mb-2">
-                                                Dummy
+                                                Sensor 4:
                                             </h4>
-                                            <p></p>
+                                            <p id="temp4Container">N/A</p>
                                         </div>
                                     </div>
                                 </div>
@@ -201,43 +195,42 @@
                                 <div class="col-md-12 my-3">
                                     <div class="bg-mattBlackLight p-3">
                                         <h4 class="mb-2">
-                                            Log Dummy
+                                            Incoming Logs
                                         </h4>
                                         <table class="table table-striped table-bordered table-dark">
                                             <thead>
                                                 <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">First</th>
+                                                    <th scope="col">Last</th>
+                                                    <th scope="col">Handle</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
                                                 </tr>
                                                 <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
                                                 </tr>
                                                 <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
+                                                    <th scope="row">3</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
                                                 </tr>
                                                 <tr>
-                                                <th scope="row">4</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
+                                                    <th scope="row">4</th>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td>@twitter</td>
                                                 </tr>
-                                                <tr>
                                             </tbody>
                                         </table> 
                                     </div>

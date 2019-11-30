@@ -56,62 +56,132 @@ var beerResultsTable = "BrewingResultsDB";
 
 /// ROUTES ///
 
-// GET All results
+// GET All Batch ID's
 router.get('/', function(req, res, next) {
-
-    // This might not be the best place to get all results since is the root route
-    // Might just render here something and move the functionality elsewhere on 
-    // another route...
+    // You need to retrieve all the batch id's from the beginning so
+    // the user can select them in the menus...
     
     // Get everything from data table
     const params = {
         TableName: beerDataTable,
     };
-    /*
-    let scanResults = [];
-    let items;
+    console.log("Scanning Beer Status table to get batch id's...");
+    let data = docClient.scan(params, onScan);
 
-    do {
-        items =  await documentClient.scan(params).promise();
-        items.Items.forEach((item) => scanResults.push(item));
-        params.ExclusiveStartKey  = items.LastEvaluatedKey;
-    } while (typeof items.LastEvaluatedKey != "undefined");
-    
-    res.send(scanResults);*/
+    // Filter data
+    id = getBatchIds(data);
+
+    res.send(id);
+
+});
+
+// GET All Data results
+router.get('/data', function(req, res, next) {
+
+    //This should only be used to show the all the results from all the batches in the front-end
+
+    // Get everything from data table
+    const params = {
+        TableName: beerDataTable,
+    };
+    console.log("Scanning Beer Data table.");
+    let data = docClient.scan(params, onScan);
+
+    res.send(data);
 });
 
 // GET One Batch by ID
-router.get('/:batch', function(req, res, next) {
+router.get('/all/:batch', function(req, res, next) {
     // You need to get the info from the batch in params in all three tables
     // and then send it in a custom JSON structure or array...
+    /**
+     * You need to make this JSON and send it:
+     * {
+     *   batch: id,
+     *   datetime begin: datetime,
+     *   datetime end: datetime,
+     *   avg temp: temp,
+     *   highest temp: temp,
+     *   lower temp: temp,
+     *   beer type: string,
+     *   taste: good,
+     *   texture: string
+     * }
+     */
     let batch = req.params.batch;
 
     res.send('respond with a resource');
 });
 
+// GET One Batch Data by ID
+router.get('/data/:batch', function(req,res, next) {
+    // Get all the data from the DataTable for one batch.
+    let batch = req.params.batch;
+
+    res.send('Something');
+});
+
 // POST Qualy results from one Batch
-router.post('/:batch', function(req, res, next) {
+router.post('/results/:batch', function(req, res, next) {
     // Validate that the referenced batch does not have qualy already
     // If not, allow him to give the feedback to the cloud with a form or something
     // The third table is going to be modified...
+    /**
+     * The third table JSON:
+     * {
+     *   beer type
+     *   taste
+     *   texture
+     * }
+     */
     let batch = req.params.batch;
 
     res.send('respond with a resource');
 });
 
 // PUT Change the Qualy from a Batch
-router.put('/:batch', function(req, res, next) {
+router.put('/results/:batch', function(req, res, next) {
     let batch = req.params.batch;
 
     res.send('respond with a resource');
 });
 
 // DELETE a batch
-router.delete('/:batch', function(req, res, next) {
+router.delete('/all/:batch', function(req, res, next) {
     // Delete everything from a batch in all three tables
     let batch = req.params.batch;
 
     res.send('respond with a resource');
 });
 
+/// AWS FUNCTIONS ///
+
+// This function serves to get everything from one table.
+function onScan(err, data) {
+    if (err) {
+        console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+    } else {
+        // print all the movies
+        console.log("Scan succeeded.");
+
+        // continue scanning if we have more movies, because
+        // scan can retrieve a maximum of 1MB of data
+        if (typeof data.LastEvaluatedKey != "undefined") {
+            console.log("Scanning for more...");
+            params.ExclusiveStartKey = data.LastEvaluatedKey;
+            docClient.scan(params, onScan);
+        }
+        //console.log(data.Items[0].data.Batch);
+        return data;
+    }
+}
+
+function getBatchIds(data) {
+    // Function to filter the JSON struct sent from DynamoDB.
+    // First, get only the id's
+    // Second, delete duplicates
+    // Third, return result...
+}
+
+// Module Export
 module.exports = router;

@@ -18,7 +18,7 @@ JSON 1
   batch: "ID",	//Key to join with other JSON
   JSON_Type: 0|1,	//Bool to know in which DB to save
   on: 0|1,	//0=Off, 1=On
-  datetime: "dd/mm/yyyy:00:00:00"
+  datetime: "YYYY-MM-DDTHH:MM:SSZ"
 }
 
 JSON 2

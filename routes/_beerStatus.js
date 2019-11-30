@@ -37,10 +37,11 @@ var device = awsIot.device({
     host: 'a1nb3ykqw07ghq-ats.iot.us-east-2.amazonaws.com'
 });
 
-device
-  	.on('connect', function() {
+device.on('connect', function() {
     //console.log('connect');
-    device.subscribe('NodeMCU-Topic');
+	//device.subscribe('NodeMCU-Topic');
+	device.subscribe('beerstatus');
+	device.subscribe('beerdata');
 });
 
 /*
@@ -55,27 +56,38 @@ device
 
 router.ws('/', (ws, req) => {
 	console.log('WebSocket initialized from server side...')
-  	ws.on('message', msg => {
+  	ws.on('message', () => {
 		//ws.send(msg);
-		console.log('WebSocket Message received form server side...')
-		/*
-		device
-			.on('message', function(topic, payload) {
-			// Change this to dynamically save the data in a global var to be able to export it.
-			let JSONpayload = JSON.parse(payload.toString());
-			console.log('message', topic, ':\n', JSONpayload);
-			ws.send(JSONpayload);
-			console.log('WebSocket Message sent form server side...')
-		});*/
+		console.log('WebSocket Message received form server side...');
+		let exampleCounter = 0;
+
+		let example = {
+			status: {
+				batch: `example${exampleCounter}`,
+				datetime: 'example',
+				runningTime: 'example',
+				overall: 'example'
+			},
+			data: {
+				temp1: 'example',
+				temp2: 'example',
+				temp3: 'example',
+				temp4: 'example'
+			}
+		}
+
+		console.log(example.toString());
+		ws.send(example.toString());
+		exampleCounter++;
 
 	});
 	  
-	device
-		.on('message', function(topic, payload) {
+	// Romper en paralelo...
+	device.on('message', function(topic, payload) {
 		// Change this to dynamically save the data in a global var to be able to export it.
 		let JSONpayload = JSON.parse(payload.toString());
 		console.log('Message', topic, ':\n', JSONpayload);
-		ws.send(payload.toString());
+		//ws.send(payload.toString());
 		console.log('WebSocket Message sent form server side...')
 	});
 
@@ -83,6 +95,8 @@ router.ws('/', (ws, req) => {
     	console.log('WebSocket was closed from the server side...');
   	});
 });
+
+
 
 ///*** ROUTES */
 

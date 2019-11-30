@@ -9,7 +9,7 @@ var awsIot = require('aws-iot-device-sdk');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var statusRouter = require('./routes/beerStatus');
+//var statusRouter = require('./routes/beerStatus');
 var brewingRouter = require('./routes/brewing');
 var csvRouter = require('./routes/csv');
 
