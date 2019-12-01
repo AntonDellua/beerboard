@@ -59,10 +59,10 @@ function onScan(err, data) {
             params.ExclusiveStartKey = data.LastEvaluatedKey;
             docClient.scan(params, onScan);
         }
-        console.log(data.Items[0].data.Batch);
+        //console.log(data.Items[0]);
     }
 }
 
 // Function Calls
-//test1();
-getEverythingFromTable();
+test1();
+//getEverythingFromTable();

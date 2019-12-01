@@ -9,15 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
     <link rel="stylesheet" href="../stylesheets/style.css" />
 </head>
-<body>
 
-    <!--Scripts-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script> 
-    <!--Local Javascript files-->
-    <script src="../javascripts/dashboard.js"></script>
-    <script src="../javascripts/websocket.js"></script>
+<body>
 
     <!--NavBar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -87,25 +80,121 @@
         </div>
         <!--End of Side Menu-->
 
-
-        <section class="content">
-            <!--Start of Batch-->
-            <div id="batch" class="page">
+        <!--Start of Batch-->
+        <section class="content page" id="batch">
+            <div>
                 <main>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloremque obcaecati fugit cupiditate magnam illum laudantium sit ea libero ut eos at, necessitatibus tenetur modi ipsum minus iure quae delectus optio quos magni reiciendis iste. Maiores quisquam beatae, saepe quas, eum ratione deserunt alias quos unde odit numquam eaque repudiandae?</div>
-                            <div class="col-md-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui deserunt corporis adipisci beatae cumque odit iure placeat libero dignissimos nesciunt illo suscipit perspiciatis veniam nisi, excepturi reiciendis nulla reprehenderit tenetur, ipsum nemo commodi temporibus. Nulla vero neque consectetur ea ducimus?</div>
+                            <h2 class="p-3">Select Batch:</h2>
+                            <div class="dropdown p-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <div id="dropdown-batch" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="row">
+                                    <div class="col-md-12 m-3">
+                                        <div class="bg-mattBlackLight p-3">
+                                            <h4 class="mb-2">
+                                                Beer Batch ID:
+                                            </h4>
+                                            <p id="bBeerBatchContainer">N/A</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 m-3">
+                                        <div class="bg-mattBlackLight p-3">
+                                            <h4 class="mb-2">
+                                                Date:
+                                            </h4>
+                                            <p id="bDateContainer">N/A</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 m-3">
+                                        <button type="button" class="btn btn-outline-light">Download CSV</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="col-md-12 m-3">
+                                    <div class="bg-mattBlackLight p-3">
+                                        <table class="table table-striped table-bordered table-dark">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Started at:</th>
+                                                    <td id="bStartedAtContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Finished at:</th>
+                                                    <td id="bFinishedAtContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Total Time:</th>
+                                                    <td id="bTotalTimeContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Average Temperature:</th>
+                                                    <td id="bAverageTempContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Highest Temperature:</th>
+                                                    <td id="bHighestTempContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Lowest Temperature:</th>
+                                                    <td id="bLowestTempContainer">N/A</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="col-md-12 m-3">
+                                    <div class="bg-mattBlackLight p-3">
+                                        <table class="table table-striped table-bordered table-dark">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Beer Type:</th>
+                                                    <td id="bBeerTypeContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Flavour:</th>
+                                                    <td id="bFlavourContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Texture:</th>
+                                                    <td id="bTextureContainer">N/A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Grade:</th>
+                                                    <td id="bGradeContainer">N/A</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#modal-form">Update Info</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </main>
             </div>
-            <!--End of batch-->
-        <!--</section>
+        </section>
+        <!--End of Batch-->
 
-        <section class="content-dashboard">-->
-            <!--Start of Dashboard-->
-            <div id="dashboard" class="page default">
+        <!--Start of Dashboard-->
+        <section class="content page default" id="dashboard">
+            
+            <div>
                 <main>
                     <div class="container-fluid">
                         <div class="row">
@@ -142,12 +231,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--
-                        <div class="row">
-                            <div class="col-md-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloremque obcaecati fugit cupiditate magnam illum laudantium sit ea libero ut eos at, necessitatibus tenetur modi ipsum minus iure quae delectus optio quos magni reiciendis iste. Maiores quisquam beatae, saepe quas, eum ratione deserunt alias quos unde odit numquam eaque repudiandae?</div>
-                            <div class="col-md-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui deserunt corporis adipisci beatae cumque odit iure placeat libero dignissimos nesciunt illo suscipit perspiciatis veniam nisi, excepturi reiciendis nulla reprehenderit tenetur, ipsum nemo commodi temporibus. Nulla vero neque consectetur ea ducimus?</div>
-                        </div>
-                        -->
+                        
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="row my-3">
@@ -200,36 +284,56 @@
                                         <table class="table table-striped table-bordered table-dark">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First</th>
-                                                    <th scope="col">Last</th>
-                                                    <th scope="col">Handle</th>
+                                                    <th scope="col">Beer Batch:</th>
+                                                    <th scope="col">Started at:</th>
+                                                    <th scope="col">Running Time:</th>
+                                                    <th scope="col">Overall Temperature:</th>
+                                                    <th scope="col">Sensor 1:</th>
+                                                    <th scope="col">Sensor 2:</th>
+                                                    <th scope="col">Sensor 3:</th>
+                                                    <th scope="col">Sensor 4:</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                    <th scope="row">N/A</th>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
+                                                    <th scope="row">N/A</th>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
+                                                    <th scope="row">N/A</th>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">4</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
+                                                    <th scope="row">N/A</th>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
+                                                    <td>N/A</td>
                                                 </tr>
                                             </tbody>
                                         </table> 
@@ -240,10 +344,55 @@
                     </div>
                 </main>
             </div>
-            <!--End of Dashboard-->
+            
         </section>
+        <!--End of Dashboard-->
 
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Enter Batch Information:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="form-group">
+                            <label for="beerType">Type:</label>
+                            <input type="text" class="form-control" id="beerType">
+                        </div>
+                        <div class="form-group">
+                            <label for="beerFlavour">Flavour:</label>
+                            <input type="text" class="form-control" id="beerFlavour">
+                        </div>
+                        <div class="form-group">
+                            <label for="beerTexture">Texture:</label>
+                            <input type="text" class="form-control" id="beerTexture">
+                        </div>
+                        <div class="form-group">
+                            <label for="beerGrade">Grade:</label>
+                            <input type="text" class="form-control" id="beerGrade">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+
+<!--Scripts-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script> 
+<!--Local Javascript files-->
+<script src="../javascripts/dashboard.js"></script>
+<script src="../javascripts/websocket.js"></script>
+
 </html>

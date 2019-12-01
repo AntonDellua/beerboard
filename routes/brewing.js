@@ -45,8 +45,6 @@ AWS.config.update({
 });
 
 // AWS Vars
-var docClient = new AWS.DynamoDB.DocumentClient();
-
 var table = "NodeMCU-Test";     // Test value, must be changed
 var key = "a04";          // Test value, must be changed
 
@@ -63,22 +61,46 @@ router.get('/', function(req, res, next) {
     
     // Get everything from data table
     const params = {
-        TableName: beerDataTable,
+        TableName: beerStatusTable,
     };
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
     console.log("Scanning Beer Status table to get batch id's...");
-    let data = docClient.scan(params, onScan);
-
-    // Filter data
-    id = getBatchIds(data);
-
-    res.send(id);
+    docClient.scan(params, function(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Scan succeeded.");
+    
+            // continue scanning if we have more items, because
+            // scan can retrieve a maximum of 1MB of data
+            if (typeof data.LastEvaluatedKey != "undefined") {
+                console.log("Scanning for more...");
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+            }
+            
+            // Function to filter the JSON struct sent from DynamoDB.
+            let IDS = [];
+            // First, get only the id's
+            data.Items.forEach(function(item) {
+                IDS.push(item.data.batch);
+            });
+            // Second, delete duplicates
+            IDS = new Set(IDS);
+            IDS = [...IDS];
+            console.log('IDS: ', IDS);
+            // Third, return result...
+            res.send(IDS);            
+        }
+    });
 
 });
 
 // GET All Data results
 router.get('/data', function(req, res, next) {
 
-    //This should only be used to show the all the results from all the batches in the front-end
+    //This should only be used to show all the results from all the batches in the front-end
 
     // Get everything from data table
     const params = {
@@ -94,23 +116,157 @@ router.get('/data', function(req, res, next) {
 router.get('/all/:batch', function(req, res, next) {
     // You need to get the info from the batch in params in all three tables
     // and then send it in a custom JSON structure or array...
-    /**
-     * You need to make this JSON and send it:
-     * {
-     *   batch: id,
-     *   datetime begin: datetime,
-     *   datetime end: datetime,
-     *   avg temp: temp,
-     *   highest temp: temp,
-     *   lower temp: temp,
-     *   beer type: string,
-     *   taste: good,
-     *   texture: string
-     * }
-     */
     let batch = req.params.batch;
 
-    res.send('respond with a resource');
+    var params = {
+        TableName: beerStatusTable,
+        //TableName: table,
+        Key:{
+            // Change this to batch for final implementation!!!
+            "batch": batch
+        }
+    };
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
+    let payload = {
+        batch,
+        date: 'N/A',
+        started: 'N/A',
+        finished: 'N/A',
+        total: 'N/A',
+        avg: 'N/A',
+        high: 'N/A',
+        low: 'N/A',
+        type: 'N/A',
+        flavour: 'N/A',
+        texture: 'N/A',
+        grade: 'N/A'
+    }
+
+    // Scan Brewing Status Table
+    docClient.scan(params, function(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Scan succeeded.");
+            // continue scanning if we have more items, because
+            // scan can retrieve a maximum of 1MB of data
+            if (typeof data.LastEvaluatedKey != "undefined") {
+                console.log("Scanning for more...");
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+            }
+
+            // Brewing Status processing to payload:
+            if (data != undefined) {
+                // Here you define:
+                // - Date from datetime
+                // - Started At from time of datetime
+                // - Finished At
+                // - Total Time
+                let start = new Date();
+                let end = new Date();
+                let total = new Date();
+                data.Items.forEach(function(item) {
+                    console.log(item.data);
+                    if (item.data.on == 1) {
+                        start = new Date(item.data.datetime);
+                    } else if (item.data.on == 0) {
+                        end = new Date(item.data.datetime);
+                    } else console.log('ERROR from /brewing/data/:batch... Brewing Status If...');
+                });
+                // TO DO: Revisar fechas...
+                //total = Math.floor(end - start);
+                payload.date = `${start.getDay()}/${start.getMonth()}/${start.getFullYear()}`;
+                payload.started = `${start.getHours()}:${start.getMinutes()}:${start.getSeconds()}`;
+                payload.finished = `${end.getHours()}:${end.getMinutes()}:${end.getSeconds()}`;
+                //payload.total = `${total.getHours()}:${total.getMinutes()}:${total.getSeconds()}`;
+            }
+        }
+
+        // Scan Brewing Data Table
+        params.TableName = beerDataTable;
+        docClient.scan(params, function(err, data) {
+            if (err) {
+                console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+            } else {
+                console.log("Scan succeeded.");
+                // continue scanning if we have more items, because
+                // scan can retrieve a maximum of 1MB of data
+                if (typeof data.LastEvaluatedKey != "undefined") {
+                    console.log("Scanning for more...");
+                    params.ExclusiveStartKey = data.LastEvaluatedKey;
+                    docClient.scan(params, onScan);
+                }
+
+                // Brewing Data processing to payload:
+                if (data != undefined) {
+                    // Here you define:
+                    // - Average Temp
+                    // - Highest Temp
+                    // - Lowest Temp
+                    let temps = [];
+                    data.Items.forEach(function(item) {
+                        console.log(item.data);
+                        temps.push(item.data.temp);
+                    });
+                    const avg = (temps.reduce((a,b) => a + b, 0) / temps.length).toFixed(3);
+                    const min = Math.min(...temps);
+                    const max = Math.max(...temps);
+
+                    payload.avg = avg;
+                    payload.high = max;
+                    payload.low = min;
+                }
+            }
+
+            // Scan Brewing Results Table
+            params.TableName = beerResultsTable;
+            docClient.scan(params, function(err, data) {
+                if (err) {
+                    console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+                } else {
+                    console.log("Scan succeeded.");
+                    // continue scanning if we have more items, because
+                    // scan can retrieve a maximum of 1MB of data
+                    if (typeof data.LastEvaluatedKey != "undefined") {
+                        console.log("Scanning for more...");
+                        params.ExclusiveStartKey = data.LastEvaluatedKey;
+                        docClient.scan(params, onScan);
+                    }
+
+                    // Brewing Results processing to payload:
+                    if (data != undefined) {
+                        // Here you define:
+                        // - Beer Type
+                        // - Flavour
+                        // - Texture
+                        // - Grade
+                        data.Items.forEach(function(item) {
+                            console.log(item.data);
+                            payload.type = item.data.type;
+                            payload.flavour = item.data.flavour;
+                            payload.texture = item.data.texture;
+                            payload.grade = item.data.grade;
+                        });
+                    }
+                }
+
+                console.log(payload);
+                res.send(payload);
+            });
+
+        });
+
+    });
+
+
+    /*
+    timer = setInterval(function() {
+        console.log(payload);
+        res.send(payload);
+    }, 4000);*/
+    
 });
 
 // GET One Batch Data by ID
@@ -153,35 +309,6 @@ router.delete('/all/:batch', function(req, res, next) {
 
     res.send('respond with a resource');
 });
-
-/// AWS FUNCTIONS ///
-
-// This function serves to get everything from one table.
-function onScan(err, data) {
-    if (err) {
-        console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-    } else {
-        // print all the movies
-        console.log("Scan succeeded.");
-
-        // continue scanning if we have more movies, because
-        // scan can retrieve a maximum of 1MB of data
-        if (typeof data.LastEvaluatedKey != "undefined") {
-            console.log("Scanning for more...");
-            params.ExclusiveStartKey = data.LastEvaluatedKey;
-            docClient.scan(params, onScan);
-        }
-        //console.log(data.Items[0].data.Batch);
-        return data;
-    }
-}
-
-function getBatchIds(data) {
-    // Function to filter the JSON struct sent from DynamoDB.
-    // First, get only the id's
-    // Second, delete duplicates
-    // Third, return result...
-}
 
 // Module Export
 module.exports = router;

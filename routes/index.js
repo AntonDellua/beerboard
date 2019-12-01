@@ -101,6 +101,7 @@ router.ws('/', (ws, req) => {
 			mm = d.getMinutes();
 			ss = d.getSeconds();
 			// Change this:
+			// https://tecadmin.net/get-current-date-time-javascript/
 			payload.status.runningTime = `${hh}:${mm}:${ss}`;
 		}
 

@@ -1,0 +1,22 @@
+MAIN:
+2 Main Dashboard, recibir todas las medidas de dos topics
+.5  Tabla Main Dashboard estilo dummy
+1   UI Batch
+.25 Pop-up form batch
+.25 Obtener id's de batches y mostrarlos en menu dentro de batch
+.5  Recibir datos AWS en batch bajo peticion
+.5  Validaciones y condiciones de peticion de datos en batch
+1   Modificar batch dinamicamente para mostrar datos
+- Obtener CSV
+- Publicar con Form
+.25 Montar en Beanstalk
+SECONDARY:
+- Login y gestion users
+- Modificar rutas de archivos con __dirname
+- Eliminar basura de directorio
+- README.md
+- Agregar resto de rutas
+- Limpiar console logs
+- Styles visuales de toda UI
+- Reacomodo botones menu
+

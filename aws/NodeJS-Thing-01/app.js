@@ -24,12 +24,12 @@ device
     console.log('connect');
     //device.subscribe('topic_1');
     //device.publish('NodeMCU-Topic', JSON.stringify(
-    device.publish('brewingstatus', JSON.stringify(
+    device.publish('NodeMCU-Topic', JSON.stringify(
       { 
-        batch: 'a04',
+        batch: 'a06',
         JSON_Type: 0,
         on: 1,
-        datetime: '01/01/2020:00:00:01'
+        datetime: '2019-11-30T12:05:01-06:00'
       }));
   });
 
