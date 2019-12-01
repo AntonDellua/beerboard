@@ -126,7 +126,7 @@ router.get('/', function(req, res, next) {
 	// Send all JSON data
 	//res.send('respond with a resource');
 	console.log('Hello from index.js');
-	res.render('index', { title: 'Beerboard' });
+	res.render('index', { title: 'Brewing Pal' });
 });
 
 // GET Temperatures
