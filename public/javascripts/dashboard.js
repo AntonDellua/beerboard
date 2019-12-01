@@ -11,7 +11,12 @@ let bFlavour = document.getElementById('bFlavourContainer');
 let bTexture = document.getElementById('bTextureContainer');
 let bGrade = document.getElementById('bGradeContainer');
 
-//let ex1;
+let fBeerType = document.getElementById('beerType');
+let fBeerFlavour = document.getElementById('beerFlavour');
+let fBeerTexture = document.getElementById('beerTexture');
+let fBeerGrade = document.getElementById('beerGrade');
+
+let fillBatchFlag = 0;
 
 const fetchIDS = async () => {
     console.log('Fetching Batch Ids...');
@@ -44,6 +49,38 @@ const fillBatch = async (id) => {
     bFlavour.innerHTML = json.flavour;
     bTexture.innerHTML = json.texture;
     bGrade.innerHTML = json.grade;
+
+    fillBatchFlag = 1;
+}
+
+const sendForm = async () => {
+    //console.log('THE VALUE OF BEER TYPE IS: ', fBeerType.value);
+    console.log('POST Form to API...');
+
+    if (fillBatchFlag == 1) {
+        if (fBeerType.value != '' && fBeerFlavour.value != '' && fBeerTexture.value != '' && fBeerGrade != '') {
+            const data = {
+                type: fBeerType.value,
+                flavour: fBeerFlavour.value,
+                texture: fBeerTexture.value,
+                grade: fBeerGrade.value
+            };
+            const params = {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+                method: 'POST'
+            }
+            console.log(JSON.stringify(data));
+            fetch(`/brewing/results/${bBeerBatch.innerHTML}`, params).then(function(response) {
+                return response.json();
+            }).then(function(json) {
+                console.log('Response from Form POST: ', json);
+            });
+            
+        } else console.log('Forms values are blank, fill them');
+    } else console.log('You need to select a batch first');  
 }
 
 $(document).ready(function(){

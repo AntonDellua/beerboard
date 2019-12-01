@@ -1,8 +1,12 @@
 var express = require('express');
+var AWS = require("aws-sdk");       // AWS
+var bodyParser = require('body-parser');
+
+// Router instance
 var router = express.Router();
 
-// AWS
-var AWS = require("aws-sdk");
+// Body Parser Middleware
+router.use(bodyParser.json());
 
 /**
  * Here we manage the results of the beer process
@@ -106,10 +110,37 @@ router.get('/data', function(req, res, next) {
     const params = {
         TableName: beerDataTable,
     };
-    console.log("Scanning Beer Data table.");
-    let data = docClient.scan(params, onScan);
 
-    res.send(data);
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
+    console.log("Scanning Beer Data table to get all results.");
+    docClient.scan(params, function(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Scan succeeded.");
+    
+            // continue scanning if we have more items, because
+            // scan can retrieve a maximum of 1MB of data
+            if (typeof data.LastEvaluatedKey != "undefined") {
+                console.log("Scanning for more...");
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+            }
+
+            if (data != undefined) {
+                let response = {};
+                data.Items.forEach(function(item) {
+                    console.log(item.data);
+                    response.push(item.data);
+                });
+                res.send(response);
+            }
+                       
+        }
+    });
+
+    //res.send(data);
 });
 
 // GET One Batch by ID
@@ -259,13 +290,6 @@ router.get('/all/:batch', function(req, res, next) {
         });
 
     });
-
-
-    /*
-    timer = setInterval(function() {
-        console.log(payload);
-        res.send(payload);
-    }, 4000);*/
     
 });
 
@@ -274,7 +298,46 @@ router.get('/data/:batch', function(req,res, next) {
     // Get all the data from the DataTable for one batch.
     let batch = req.params.batch;
 
-    res.send('Something');
+    // Get everything from data table
+    const params = {
+        TableName: beerDataTable,
+        Key:{
+            // Change this to batch for final implementation!!!
+            "batch": batch
+        }
+    };
+
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
+    console.log("Scanning Beer Data table to get all results.");
+    docClient.scan(params, function(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Scan succeeded.");
+    
+            // continue scanning if we have more items, because
+            // scan can retrieve a maximum of 1MB of data
+            if (typeof data.LastEvaluatedKey != "undefined") {
+                console.log("Scanning for more...");
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+            }
+
+            if (data != undefined) {
+                let response = {};
+                data.Items.forEach(function(item) {
+                    console.log(item.data);
+                    response.push(item.data);
+                });
+                res.send(response);
+            }
+                       
+        }
+    });
+
+
+    //res.send('Something');
 });
 
 // POST Qualy results from one Batch
@@ -282,17 +345,35 @@ router.post('/results/:batch', function(req, res, next) {
     // Validate that the referenced batch does not have qualy already
     // If not, allow him to give the feedback to the cloud with a form or something
     // The third table is going to be modified...
-    /**
-     * The third table JSON:
-     * {
-     *   beer type
-     *   taste
-     *   texture
-     * }
-     */
+    
     let batch = req.params.batch;
+    let json = req.body;
 
-    res.send('respond with a resource');
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
+    var params = {
+        TableName: beerResultsTable,
+        Item:{
+            "batch": batch,
+            "data": {
+                "type": json.type,
+                "flavour": json.flavour,
+                "texture": json.texture,
+                "grade": json.grade
+            }
+        }
+    };
+
+    console.log("Adding a new item...");
+    docClient.put(params, function(err, data) {
+        if (err) {
+            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Added item:", JSON.stringify(data, null, 2));
+            res.send(data.Item);
+        }
+    });
+
 });
 
 // PUT Change the Qualy from a Batch
