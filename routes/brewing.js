@@ -148,14 +148,21 @@ router.get('/all/:batch', function(req, res, next) {
     // You need to get the info from the batch in params in all three tables
     // and then send it in a custom JSON structure or array...
     let batch = req.params.batch;
+    console.log('THE BATCH IS: ', batch);
 
     var params = {
         TableName: beerStatusTable,
-        //TableName: table,
+        KeyConditionExpression: "#bt = :btc",
+        ExpressionAttributeNames:{
+            "#bt": "batch"
+        },
+        ExpressionAttributeValues: {
+            ":btc": batch
+        }/*
         Key:{
             // Change this to batch for final implementation!!!
             "batch": batch
-        }
+        }*/
     };
     var docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -175,7 +182,7 @@ router.get('/all/:batch', function(req, res, next) {
     }
 
     // Scan Brewing Status Table
-    docClient.scan(params, function(err, data) {
+    docClient.query(params, function(err, data) {
         if (err) {
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
         } else {
@@ -217,7 +224,7 @@ router.get('/all/:batch', function(req, res, next) {
 
         // Scan Brewing Data Table
         params.TableName = beerDataTable;
-        docClient.scan(params, function(err, data) {
+        docClient.query(params, function(err, data) {
             if (err) {
                 console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
             } else {
@@ -253,7 +260,7 @@ router.get('/all/:batch', function(req, res, next) {
 
             // Scan Brewing Results Table
             params.TableName = beerResultsTable;
-            docClient.scan(params, function(err, data) {
+            docClient.query(params, function(err, data) {
                 if (err) {
                     console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
                 } else {

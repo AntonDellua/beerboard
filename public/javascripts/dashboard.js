@@ -33,7 +33,7 @@ const fetchIDS = async () => {
 }
 
 const fillBatch = async (id) => {
-    console.log('Fetching Batch data by ID...');
+    console.log('Fetching Batch data by ID...', id);
     const response = await fetch(`/brewing/all/${id}`);
     const json = await response.json();
 

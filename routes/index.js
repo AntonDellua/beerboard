@@ -75,7 +75,19 @@ device.on('message', function(topic, msg) {
 	} else if (money.JSON_Type == 1) {
 
 		switch (money.sensor) {
-			default: console.log('ERROR from server side: Data JSON has invalid sensor ID...')
+			case 's1': 
+				payload.data.temp1 = money.temp;
+				break;
+			case 's2': 
+				payload.data.temp2 = money.temp;
+				break;
+			case 's3': 
+				payload.data.temp3 = money.temp;
+				break;
+			case 's4': 
+				payload.data.temp4 = money.temp;
+				break;
+			default: console.log('ERROR from server side: Data JSON has invalid sensor ID...');
 		}
 
 	// Something went wrong with the JSON

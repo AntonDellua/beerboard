@@ -4,7 +4,7 @@
  */
 
 // WebSocket vars
-let url = 'ws://localhost:3000';       // The url must be an endpoint on the back-end
+let url = 'ws://localhost:8081';       // The url must be an endpoint on the back-end
 let w = new WebSocket(url);
 
 console.log('Hello from WebSocket.js');
